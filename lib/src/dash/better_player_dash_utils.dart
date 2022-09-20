@@ -50,8 +50,14 @@ class BetterPlayerDashUtils {
           int.parse(representation.getAttribute('height') ?? '0');
       final int bitrate =
           int.parse(representation.getAttribute('bandwidth') ?? '0');
-      final int frameRate =
-          int.parse(representation.getAttribute('frameRate') ?? '0');
+      final _frameRate =
+          (representation.getAttribute('frameRate') ?? '0').split("/");
+      late final int frameRate;
+      if (_frameRate.length == 1) {
+        frameRate = int.parse(_frameRate[0]);
+      } else {
+        frameRate = int.parse(_frameRate[0]) ~/ int.parse(_frameRate[1]);
+      }
       final String? codecs = representation.getAttribute('codecs');
       final String? mimeType = MimeTypes.getMediaMimeType(codecs ?? '');
       tracks.add(BetterPlayerAsmsTrack(
