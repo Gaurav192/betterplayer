@@ -698,7 +698,7 @@ internal class BetterPlayer(
         val mappedTrackInfo = trackSelector.currentMappedTrackInfo
         if (mappedTrackInfo != null) {
             val builder = trackSelector.parameters.buildUpon()
-                    .setRendererDisabled(rendererIndex, false)
+                    .setRendererDisabled(rendererIndex, false).clearOverrides()
                     .addOverride(TrackSelectionOverride(mappedTrackInfo.getTrackGroups(rendererIndex).get(groupIndex), groupElementIndex))
                     .build()
             trackSelector.parameters=builder;
