@@ -24,8 +24,11 @@ class BetterPlayerDashUtils {
           if (MimeTypes.isVideo(mimeType)) {
             tracks = tracks + parseVideo(node);
           } else if (MimeTypes.isAudio(mimeType)) {
-            audios.add(parseAudio(node, audiosCount));
-            audiosCount += 1;
+            final _audio = parseAudio(node, audiosCount);
+            if (audios.every((element) => element.label != _audio.label)) {
+              audios.add(_audio);
+              audiosCount += 1;
+            }
           } else if (MimeTypes.isText(mimeType)) {
             subtitles.add(parseSubtitle(masterPlaylistUrl, node));
           }
