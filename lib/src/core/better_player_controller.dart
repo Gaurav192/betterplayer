@@ -262,6 +262,9 @@ class BetterPlayerController {
           .addAll(betterPlayerDataSource.subtitles!);
     }
 
+    ///Process data source
+    await _setupDataSource(betterPlayerDataSource);
+    setTrack(BetterPlayerAsmsTrack.defaultTrack());
     if (_isDataSourceAsms(betterPlayerDataSource)) {
       _setupAsmsDataSource(betterPlayerDataSource).then((dynamic value) {
         _setupSubtitles();
@@ -269,10 +272,6 @@ class BetterPlayerController {
     } else {
       _setupSubtitles();
     }
-
-    ///Process data source
-    await _setupDataSource(betterPlayerDataSource);
-    setTrack(BetterPlayerAsmsTrack.defaultTrack());
   }
 
   ///Configure subtitles based on subtitles source.
@@ -1200,6 +1199,7 @@ class BetterPlayerController {
     }
 
     _betterPlayerAsmsAudioTrack = audioTrack;
+    print("Audio Track:${audioTrack}");
     videoPlayerController!.setAudioTrack(audioTrack.label, audioTrack.id);
   }
 
