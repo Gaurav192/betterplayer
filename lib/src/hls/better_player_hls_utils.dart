@@ -169,6 +169,9 @@ class BetterPlayerHlsUtils {
     if (parsedPlaylist is HlsMasterPlaylist) {
       for (int index = 0; index < parsedPlaylist.audios.length; index++) {
         final Rendition audio = parsedPlaylist.audios[index];
+        //TODO(gaurav192): Add multiple audio having same label
+        // with on option to select audio quality
+        if (audios.any((element) => element.label == audio.name)) continue;
         audios.add(BetterPlayerAsmsAudioTrack(
           id: index,
           label: audio.name,
