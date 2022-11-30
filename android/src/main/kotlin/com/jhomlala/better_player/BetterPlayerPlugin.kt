@@ -102,8 +102,9 @@ class BetterPlayerPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
             INIT_METHOD -> disposeAllPlayers()
             CREATE_METHOD -> {
                 val handle = SurfaceView(flutterState!!.applicationContext)
+                val id=if (videoPlayers.size()==0) 1 else videoPlayers.keyAt(videoPlayers.size()-1) +1
                 val eventChannel = EventChannel(
-                    flutterState?.binaryMessenger, EVENTS_CHANNEL + handle.id
+                    flutterState?.binaryMessenger, EVENTS_CHANNEL + id
                 )
                 var customDefaultLoadControl: CustomDefaultLoadControl? = null
                 if (call.hasArgument(MIN_BUFFER_MS) && call.hasArgument(MAX_BUFFER_MS) &&
@@ -119,9 +120,9 @@ class BetterPlayerPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
                 }
                 val player = BetterPlayer(
                     flutterState?.applicationContext!!, eventChannel, handle,
-                    customDefaultLoadControl, result
+                    customDefaultLoadControl, result,id.toInt()
                 )
-                videoPlayers.put(handle.id.toLong(), player)
+                videoPlayers.put(id.toLong(), player)
             }
             PRE_CACHE_METHOD -> preCache(call, result)
             STOP_PRE_CACHE_METHOD -> stopPreCache(call, result)

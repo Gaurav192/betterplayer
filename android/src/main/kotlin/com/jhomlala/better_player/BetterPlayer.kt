@@ -64,15 +64,15 @@ internal class BetterPlayer(
         private val eventChannel: EventChannel,
         private val surfaceView: SurfaceView,
         customDefaultLoadControl: CustomDefaultLoadControl?,
-        result: MethodChannel.Result
+        result: MethodChannel.Result,
+        private val id:Int
 ) {
     private val exoPlayer: ExoPlayer?
     private val eventSink = QueuingEventSink()
     private val trackSelector: DefaultTrackSelector = DefaultTrackSelector(context)
     private val loadControl: LoadControl
     private var isInitialized = false
-    val getSurfaceView: SurfaceView
-        get() = surfaceView
+    val getSurfaceView get() = surfaceView
     private var key: String? = null
     private var playerNotificationManager: PlayerNotificationManager? = null
     private var refreshHandler: Handler? = null
@@ -86,6 +86,7 @@ internal class BetterPlayer(
     private val customDefaultLoadControl: CustomDefaultLoadControl =
             customDefaultLoadControl ?: CustomDefaultLoadControl()
     private var lastSendBufferedPosition = 0L
+
 
     init {
         val loadBuilder = DefaultLoadControl.Builder()
@@ -440,6 +441,7 @@ internal class BetterPlayer(
                         eventSink.setDelegate(null)
                     }
                 })
+
         exoPlayer?.setVideoSurfaceView(view)
         setAudioAttributes(exoPlayer, true)
         exoPlayer?.addListener(object : Player.Listener {
@@ -477,7 +479,7 @@ internal class BetterPlayer(
             }
         })
         val reply: MutableMap<String, Any> = HashMap()
-        reply["textureId"] = view.id
+        reply["textureId"] = id
         result.success(reply)
     }
 
