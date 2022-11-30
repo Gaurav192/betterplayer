@@ -156,6 +156,7 @@ internal class BetterPlayer(
                             }
                             .setMultiSession(false)
                             .build(httpMediaDrmCallback)
+                    surfaceView.setSecure(true)
 
                 }
             }
