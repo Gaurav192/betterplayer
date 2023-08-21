@@ -1,8 +1,10 @@
 #include: package:lint/analysis_options_package.yaml
 
 analyzer:
-  strong-mode:
-    implicit-dynamic: false
+  language:
+    strict-raw-types: false
+  # strong-mode:
+  #   implicit-dynamic: false
 
 linter:
   rules:
@@ -19,4 +21,3 @@ linter:
     sort_pub_dependencies: false
     avoid_unnecessary_containers: false
     use_setters_to_change_properties: false
-
